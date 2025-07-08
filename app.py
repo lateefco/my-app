@@ -4,9 +4,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    try:
+        with open('/etc/secrets/my-secrets-config', 'r') as secret_file:
+            secret_value = secret_file.read().strip()
+    except FileNotFoundError:
+        secret_value = "Secret file not found."
+
     text = "{}<br><br>Here's my secret: {}".format(
         os.environ.get('APP_MESSAGE', 'Hello, World!'),
-        os.environ.get('APP_SECRET')
+        secret_value
     )
     return text
 
