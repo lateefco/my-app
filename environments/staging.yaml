@@ -3,5 +3,5 @@ env:
 envSecrets:
     APP_SECRET: my-secrets
 volumeSecrets:
-    - name: my-secrets-config
+    - name: my-secrets-inifile
       path: /etc/secrets
