@@ -30,6 +30,7 @@ steps:
 - name: deploy-staging
   image: public.ecr.aws/kanopy/drone-helm:v3
   settings:
+    values_files: [ "environments/staging.yaml" ]
     chart: mongodb/web-app
     chart_version: 4.25.0
     add_repos: [mongodb=https://10gen.github.io/helm-charts]
