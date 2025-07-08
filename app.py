@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     try:
-        with open('/etc/secrets/my-secrets-config', 'r') as secret_file:
+        with open('/etc/secrets/aws-config.txt', 'r') as secret_file:
             secret_value = secret_file.read().strip()
     except FileNotFoundError:
         secret_value = "Secret file not found."
