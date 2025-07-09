@@ -1,14 +1,18 @@
 import os
 from flask import Flask
+import configparser
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    config = configparser.ConfigParser()
+    file_path = os.path.abspath('config.ini')
+    config.read(file_path)
     try:
-        with open('/etc/secrets/aws-config.txt', 'r') as secret_file:
-            secret_value = secret_file.read().strip()
-    except FileNotFoundError:
-        secret_value = "Secret file not found."
+            secret_value = config['AWS']['aws_secret_access_key']
+            print(f"Successfully read secret key: {secret_value}")
+    except KeyError:
+        print("error cannot read key")
 
     text = "{}<br><br>Here's my secret: {}".format(
         os.environ.get('APP_MESSAGE', 'Hello, World!'),
